@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>✨ Dream Space • FINAL VERSION • ALL BUTTONS</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Telegram Mini App SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: #0a0c14;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 0 0 90px 0;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 12px 12px;
+        }
+        
+        /* ===== BANNER STYLES ===== */
+        .banner {
+            background: linear-gradient(145deg, #1e1e2f, #2d2d44);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b8ba0;
+            font-size: 12px;
+            border: 1px dashed #ffd70033;
+            transition: all 0.2s ease;
+        }
+        
+        .banner-large {
+            height: 80px;
+        }
+        
+        .banner-medium {
+            height: 60px;
+        }
+        
+        .banner-small {
+            height: 45px;
+        }
+        
+        .banner-row {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        
+        .banner-row .banner {
+            flex: 1;
+        }
+        
+        .banner-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin: 12px 0;
+        }
+        
+        .banner-grid .banner {
+            height: 50px;
+        }
+        
+        .banner-grid-8 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin: 12px 0;
+        }
+        
+        .banner-grid-8 .banner {
+            height: 45px;
+        }
+        
+        /* ===== GLASS CARD ===== */
+        .glass-card {
+            background: rgba(30, 30, 47, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 16px 14px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            margin-bottom: 12px;
+        }
+        
+        /* ===== USER INFO ===== */
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .user-name {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .user-uid {
+            color: #8b8ba0;
+            font-size: 12px;
+        }
+        
+        /* ===== BALANCE ROW ===== */
+        .balance-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e1e2f;
+            border-radius: 30px;
+            padding: 12px 16px;
+            margin: 12px 0;
+        }
+        
+        .balance-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .balance-label {
+            color: #8b8ba0;
+            font-size: 12px;
+        }
+        
+        .balance-value {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffd700;
+        }
+        
+        /* ===== MINING COIN ===== */
+        .mining-coin {
+            width: 160px;
+            height: 160px;
+            margin: 15px auto;
+            background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.2);
+            border: 4px solid #2d2d44;
+            cursor: pointer;
+            transition: 0.05s ease;
+        }
+        
+        .mining-coin:active {
+            transform: scale(0.95);
+        }
+        
+        /* ===== CHARGE BAR ===== */
+        .charge-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 15px 0;
+        }
+        
+        .charge-bar {
+            flex: 1;
+            height: 10px;
+            background: #2d2d44;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .charge-fill {
+            height: 10px;
+            background: #ffd700;
+            border-radius: 10px;
+            width: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .charge-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffd700;
+        }
+        
+        /* ===== BATTERY BOX ===== */
+        .battery-box {
+            background: #1e1e2f;
+            border-radius: 20px;
+            padding: 14px;
+            margin: 12px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #ffd700;
+        }
+        
+        .battery-box:active {
+            transform: scale(0.98);
+        }
+        
+        .extra-battery {
+            background: #2d2d44;
+            border-radius: 20px;
+            padding: 14px;
+            margin: 12px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* ===== BADGE ===== */
+        .badge {
+            background: #ffd700;
+            color: #0a0c14;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            background: #ffd700;
+            border: none;
+            color: #0a0c14;
+            font-weight: 700;
+            padding: 14px 20px;
+            border-radius: 40px;
+            width: 100%;
+            font-size: 15px;
+            box-shadow: 0 4px 0 #b8860b;
+            transition: 0.1s ease;
+            cursor: pointer;
+            margin: 6px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #b8860b;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            font-weight: 600;
+            padding: 12px 18px;
+            border-radius: 40px;
+            width: 100%;
+            font-size: 14px;
+            transition: 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-outline:active {
+            background: rgba(255, 215, 0, 0.1);
+        }
+        
+        .btn-sm {
+            background: #ffd700;
+            border: none;
+            color: #0a0c14;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            box-shadow: 0 2px 0 #b8860b;
+            transition: 0.1s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .btn-sm:active {
+            transform: translateY(2px);
+            box-shadow: 0 0px 0 #b8860b;
+        }
+        
+        /* ===== INPUTS ===== */
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 18px;
+            margin: 8px 0;
+            border-radius: 30px;
+            border: 1.5px solid #2d2d44;
+            background: #1e1e2f;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+        
+        input:focus, select:focus {
+            border-color: #ffd700;
+        }
+        
+        /* ===== SCREENS ===== */
+        .screen {
+            display: none;
+            animation: fadeSlide 0.3s ease;
+        }
+        
+        .active {
+            display: block !important;
+        }
+        
+        @keyframes fadeSlide {
+            from { opacity: 0.4; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .nav-bar {
+            position: fixed;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            background: #1e1e2f;
+            border-radius: 40px;
+            display: flex;
+            padding: 8px 6px;
+            border: 2px solid #ffd700;
+            max-width: 500px;
+            margin: 0 auto;
+            z-index: 999;
+        }
+        
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            color: #8b8ba0;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 6px 0;
+            border-radius: 30px;
+            transition: 0.1s ease;
+            cursor: pointer;
+        }
+        
+        .nav-item i {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 2px;
+            color: #8b8ba0;
+        }
+        
+        .nav-active {
+            background: #ffd700;
+            color: #0a0c14;
+        }
+        
+        .nav-active i {
+            color: #0a0c14;
+        }
+        
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            right: 20px;
+            background: #1e1e2f;
+            color: white;
+            padding: 14px 18px;
+            border-radius: 40px;
+            text-align: center;
+            font-weight: 600;
+            z-index: 9999;
+            display: none;
+            animation: slideUp 0.25s ease;
+            border: 1px solid #ffd700;
+        }
+        
+        @keyframes slideUp {
+            from { bottom: 60px; opacity: 0; }
+            to { bottom: 100px; opacity: 1; }
+        }
+        
+        /* ===== REFERRAL BOX ===== */
+        .referral-box {
+            background: #1e1e2f;
+            border-radius: 24px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px solid #ffd700;
+            text-align: center;
+        }
+        
+        .referral-link-container {
+            background: #0a0c14;
+            border-radius: 40px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            word-break: break-all;
+        }
+        
+        /* ===== HISTORY BOX ===== */
+        .history-box {
+            background: #1e1e2f;
+            border-radius: 20px;
+            padding: 12px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        
+        .history-item {
+            padding: 10px;
+            border-bottom: 1px solid #2d2d44;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* ===== COUNTDOWN ===== */
+        .countdown-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            display: none;
+        }
+        
+        .countdown-box {
+            background: #ffd700;
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #0a0c14;
+        }
+        
+        .countdown-number {
+            font-size: 60px;
+            font-weight: 800;
+        }
+        
+        /* ===== ADMIN MENU ===== */
+        .admin-menu-btn {
+            background: #1e1e2f;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s ease;
+            border-left: 4px solid #ffd700;
+        }
+        
+        .admin-menu-btn:active {
+            background: #2d2d44;
+            transform: translateX(3px);
+        }
+        
+        .notification-badge {
+            background: #dc3545;
+            color: white;
+            border-radius: 30px;
+            padding: 2px 10px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        
+        @media (max-width: 400px) {
+            .mining-coin { width: 140px; height: 140px; font-size: 50px; }
+            .balance-value { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Countdown Overlay -->
+    <div id="countdownOverlay" class="countdown-overlay">
+        <div class="countdown-box">
+            <span>⏳</span>
+            <span class="countdown-number" id="countdownNumber">30</span>
+            <span>seconds</span>
+        </div>
+    </div>
+
+    <div class="container" id="appContainer">
+        <!-- TOAST -->
+        <div id="toast" class="toast">✅ Success</div>
+
+        <!-- ========== HOME PAGE ========== -->
+        <div id="homePage" class="screen active">
+            <!-- Top 2 Banners -->
+            <div class="banner-row">
+                <div class="banner banner-medium">📢 Banner 1</div>
+                <div class="banner banner-medium">📢 Banner 2</div>
+            </div>
+            
+            <!-- User Info -->
+            <div class="glass-card">
+                <div class="user-info">
+                    <div>
+                        <span class="user-name" id="hName">Loading...</span>
+                        <span class="user-uid" id="hUid">UID: ---</span>
+                    </div>
+                </div>
+                
+                <!-- USDT & BDT Row -->
+                <div class="balance-row">
+                    <div class="balance-item">
+                        <div class="balance-label">USDT</div>
+                        <div class="balance-value" id="usdtBalance">0.00000</div>
+                    </div>
+                    <div class="balance-item">
+                        <div class="balance-label">BDT</div>
+                        <div class="balance-value" id="bdtBalance">0.00</div>
+                    </div>
+                </div>
+                
+                <!-- Mining Coin -->
+                <div class="mining-coin" onclick="handleMiningTap()">
+                    <span>D</span>
+                </div>
+                
+                <!-- Charge Bar -->
+                <div class="charge-container">
+                    <span>🔋</span>
+                    <div class="charge-bar">
+                        <div class="charge-fill" id="chargeFill" style="width: 100%;"></div>
+                    </div>
+                    <span class="charge-text" id="chargePercent">100%</span>
+                </div>
+            </div>
+            
+            <!-- 8 Banners under charge -->
+            <div class="banner-grid-8">
+                <div class="banner banner-small">📢 Ad 1</div>
+                <div class="banner banner-small">📢 Ad 2</div>
+                <div class="banner banner-small">📢 Ad 3</div>
+                <div class="banner banner-small">📢 Ad 4</div>
+                <div class="banner banner-small">📢 Ad 5</div>
+                <div class="banner banner-small">📢 Ad 6</div>
+                <div class="banner banner-small">📢 Ad 7</div>
+                <div class="banner banner-small">📢 Ad 8</div>
+            </div>
+        </div>
+
+        <!-- ========== UPGRADE PAGE ========== -->
+        <div id="upgradePage" class="screen">
+            <!-- Top 2 Banners -->
+            <div class="banner-row">
+                <div class="banner banner-medium">📢 Banner 1</div>
+                <div class="banner banner-medium">📢 Banner 2</div>
+            </div>
+            
+            <div class="glass-card">
+                <h2 style="font-size:18px; margin-bottom:15px;">⚡ Boost & Battery</h2>
+                
+                <!-- Main Battery -->
+                <div class="battery-box" onclick="watchBatteryAd()">
+                    <div>
+                        <span style="font-weight:600;">🔋 Main Battery</span>
+                        <p style="color:#8b8ba0; font-size:11px; margin-top:2px;">100% charge = 1 hour mining</p>
+                    </div>
+                    <span class="badge">Watch Ad</span>
+                </div>
+                
+                <!-- Extra Battery -->
+                <div class="extra-battery" onclick="watchExtraBatteryAd()">
+                    <div>
+                        <span style="font-weight:600;">⚡ Extra Battery (+1 hour)</span>
+                        <p style="color:#8b8ba0; font-size:11px; margin-top:2px;">
+                            Used: <span id="extraBatteryUsed">0</span>/5 · <span id="extraBatteryCooldown">Ready</span>
+                        </p>
+                    </div>
+                    <span class="badge" id="extraBatteryBadge">Watch Ad</span>
+                </div>
+                
+                <!-- Ad Remover -->
+                <div class="extra-battery" style="border-left-color:#00a86b;" onclick="watchAdRemover()">
+                    <div>
+                        <span style="font-weight:600;">🛡️ Ad Remover (30 min)</span>
+                        <p style="color:#8b8ba0; font-size:11px; margin-top:2px;">
+                            Used: <span id="adRemoverUsed">0</span>/2 · Active: <span id="adRemoverActive">No</span>
+                        </p>
+                    </div>
+                    <span class="badge" style="background:#00a86b;">Watch Ad</span>
+                </div>
+            </div>
+            
+            <!-- 6 Banners under Ad Remover -->
+            <div class="banner-grid-8">
+                <div class="banner banner-small">📢 Ad 1</div>
+                <div class="banner banner-small">📢 Ad 2</div>
+                <div class="banner banner-small">📢 Ad 3</div>
+                <div class="banner banner-small">📢 Ad 4</div>
+                <div class="banner banner-small">📢 Ad 5</div>
+                <div class="banner banner-small">📢 Ad 6</div>
+            </div>
+        </div>
+
+        <!-- ========== TASK PAGE ========== -->
+        <div id="taskPage" class="screen">
+            <div class="glass-card">
+                <h2 style="font-size:18px; margin-bottom:15px;">📋 Watch & Earn</h2>
+                
+                <div style="text-align:center; margin:15px 0;">
+                    <p style="color:#ffd700; font-size:18px; font-weight:700;">0.0002$ per ad</p>
+                </div>
+                
+                <button class="btn-primary" onclick="watchTaskAd()">
+                    <i class="fas fa-play-circle"></i> View Ad
+                </button>
+                
+                <p style="color:#8b8ba0; text-align:center; margin-top:8px; font-size:12px;">
+                    ⏱️ Next ad in <span id="taskCooldown">ready</span>
+                </p>
+                
+                <!-- Channel Join Button -->
+                <div style="margin-top:15px;">
+                    <button class="btn-outline" onclick="joinChannel()">
+                        <i class="fab fa-telegram"></i> Join Channel
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 8 Banners -->
+            <div class="banner-grid-8">
+                <div class="banner banner-small">📢 Ad 1</div>
+                <div class="banner banner-small">📢 Ad 2</div>
+                <div class="banner banner-small">📢 Ad 3</div>
+                <div class="banner banner-small">📢 Ad 4</div>
+                <div class="banner banner-small">📢 Ad 5</div>
+                <div class="banner banner-small">📢 Ad 6</div>
+                <div class="banner banner-small">📢 Ad 7</div>
+                <div class="banner banner-small">📢 Ad 8</div>
+            </div>
+        </div>
+
+        <!-- ========== REFER PAGE ========== -->
+        <div id="referPage" class="screen">
+            <div class="glass-card">
+                <h2 style="font-size:18px; margin-bottom:15px;">🤝 Refer & Earn</h2>
+                
+                <div class="referral-box">
+                    <p style="margin-bottom:10px; font-size:14px;">🔗 Your Referral Link</p>
+                    <div class="referral-link-container">
+                        <span style="font-size:12px;" id="referLink">https://t.me/your_bot?start=</span>
+                        <button class="btn-sm" onclick="copyReferLink()">Copy</button>
+                    </div>
+                    <p style="color:#ffd700; margin-top:10px;">🎁 10% Commission</p>
+                </div>
+            </div>
+            
+            <!-- 8 Banners -->
+            <div class="banner-grid-8">
+                <div class="banner banner-small">📢 Ad 1</div>
+                <div class="banner banner-small">📢 Ad 2</div>
+                <div class="banner banner-small">📢 Ad 3</div>
+                <div class="banner banner-small">📢 Ad 4</div>
+                <div class="banner banner-small">📢 Ad 5</div>
+                <div class="banner banner-small">📢 Ad 6</div>
+                <div class="banner banner-small">📢 Ad 7</div>
+                <div class="banner banner-small">📢 Ad 8</div>
+            </div>
+        </div>
+
+        <!-- ========== WITHDRAW PAGE ========== -->
+        <div id="withdrawPage" class="screen">
+            <!-- Top 2 Banners -->
+            <div class="banner-row">
+                <div class="banner banner-medium">📢 Banner 1</div>
+                <div class="banner banner-medium">📢 Banner 2</div>
+            </div>
+            
+            <div class="glass-card">
+                <h2 style="font-size:18px; margin-bottom:15px;">💸 Withdraw</h2>
+                
+                <select id="withdrawMethod">
+                    <option value="bkash">Bkash</option>
+                    <option value="nagad">Nagad</option>
+                    <option value="binance">Binance</option>
+                </select>
+                
+                <input type="text" id="withdrawAddress" placeholder="Phone Number / Address">
+                <input type="number" id="withdrawAmount" placeholder="Amount">
+                
+                <p style="color:#8b8ba0; font-size:12px; margin:8px 0;">
+                    ⏱️ Processing: 48 hours · 1$ = 120৳
+                </p>
+                
+                <button class="btn-primary" onclick="requestWithdraw()">
+                    Withdraw
+                </button>
+                
+                <h3 style="margin:15px 0 8px; font-size:16px;">📜 History</h3>
+                <div class="history-box" id="withdrawHistory"></div>
+            </div>
+            
+            <!-- Bottom 1 Banner -->
+            <div class="banner banner-medium">📢 Banner</div>
+        </div>
+
+        <!-- ========== ADMIN MENU PAGE ========== -->
+        <div id="adminMenuPage" class="screen">
+            <div class="glass-card">
+                <h2 style="font-size:18px; margin-bottom:15px;">🛡️ Admin Panel</h2>
+                
+                <div class="admin-menu-btn" onclick="loadAdminWithdraws(); toScreen('adminWithdrawPage')">
+                    <span>💸 Withdraw Requests</span>
+                    <span id="adminWithdrawBadge" class="notification-badge">0</span>
+                </div>
+                
+                <div class="admin-menu-btn" onclick="loadAdminAdLinks(); toScreen('adminAdPage')">
+                    <span>📢 Ad Links</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="admin-menu-btn" onclick="loadAdminUsers(); toScreen('adminUsersPage')">
+                    <span>👥 Users</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="admin-menu-btn" onclick="toScreen('adminAdminAdPage')">
+                    <span>🛡️ Admin Ad</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <button class="btn-outline" style="margin-top:15px;" onclick="toScreen('homePage')">
+                    ← Back
+                </button>
+            </div>
+        </div>
+
+        <!-- ========== ADMIN WITHDRAW PAGE ========== -->
+        <div id="adminWithdrawPage" class="screen">
+            <div class="glass-card">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:15px;">
+                    <i class="fas fa-arrow-left" style="font-size:20px; cursor:pointer; color:#ffd700;" onclick="toScreen('adminMenuPage')"></i>
+                    <h2 style="margin:0; font-size:18px;">💸 Withdraw</h2>
+                </div>
+                <div id="adminWithdrawContainer"></div>
+            </div>
+        </div>
+
+        <!-- ========== ADMIN AD PAGE ========== -->
+        <div id="adminAdPage" class="screen">
+            <div class="glass-card">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:15px;">
+                    <i class="fas fa-arrow-left" style="font-size:20px; cursor:pointer; color:#ffd700;" onclick="toScreen('adminMenuPage')"></i>
+                    <h2 style="margin:0; font-size:18px;">📢 Ad Links</h2>
+                </div>
+                
+                <div style="margin-bottom:15px;">
+                    <input type="url" id="newAdUrl" placeholder="Monetag Ad URL">
+                    <button class="btn-primary" onclick="addAdLink()">➕ Add Link</button>
+                </div>
+                
+                <div id="adminAdLinksContainer"></div>
+            </div>
+        </div>
+
+        <!-- ========== ADMIN USERS PAGE ========== -->
+        <div id="adminUsersPage" class="screen">
+            <div class="glass-card">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:15px;">
+                    <i class="fas fa-arrow-left" style="font-size:20px; cursor:pointer; color:#ffd700;" onclick="toScreen('adminMenuPage')"></i>
+                    <h2 style="margin:0; font-size:18px;">👥 Users</h2>
+                </div>
+                
+                <div style="display:flex; gap:10px; margin-bottom:15px;">
+                    <div style="flex:1; text-align:center; background:#1e1e2f; border-radius:16px; padding:12px;">
+                        <span style="color:#8b8ba0; font-size:12px;">💰 Total Mining</span>
+                        <div style="font-size:18px; font-weight:700; color:#ffd700;" id="adminTotalMining">0</div>
+                    </div>
+                    <div style="flex:1; text-align:center; background:#1e1e2f; border-radius:16px; padding:12px;">
+                        <span style="color:#8b8ba0; font-size:12px;">📅 Today Mining</span>
+                        <div style="font-size:18px; font-weight:700; color:#ffd700;" id="adminTodayMining">0</div>
+                    </div>
+                </div>
+                
+                <p style="color:#8b8ba0; font-size:13px; margin-bottom:5px;">⚙️ Mining Rate</p>
+                <input type="number" id="miningRate" step="0.00000001" value="0.00008">
+                <button class="btn-sm" onclick="setMiningRate()">Set Rate</button>
+                
+                <p style="color:#8b8ba0; font-size:13px; margin:15px 0 5px;">📢 Channel Link</p>
+                <input type="url" id="channelLink" placeholder="https://t.me/your_channel">
+                <button class="btn-sm" onclick="setChannelLink()">Set Channel</button>
+            </div>
+        </div>
+
+        <!-- ========== ADMIN ADMIN AD PAGE ========== -->
+        <div id="adminAdminAdPage" class="screen">
+            <div class="glass-card">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:15px;">
+                    <i class="fas fa-arrow-left" style="font-size:20px; cursor:pointer; color:#ffd700;" onclick="toScreen('adminMenuPage')"></i>
+                    <h2 style="margin:0; font-size:18px;">🛡️ Admin Ad</h2>
+                </div>
+                
+                <button class="btn-primary" onclick="watchAdminAd()">
+                    👁️ View Ad
+                </button>
+                
+                <!-- 8 Small Banners -->
+                <div class="banner-grid-8" style="margin-top:20px;">
+                    <div class="banner banner-small">📢 Ad 1</div>
+                    <div class="banner banner-small">📢 Ad 2</div>
+                    <div class="banner banner-small">📢 Ad 3</div>
+                    <div class="banner banner-small">📢 Ad 4</div>
+                    <div class="banner banner-small">📢 Ad 5</div>
+                    <div class="banner banner-small">📢 Ad 6</div>
+                    <div class="banner banner-small">📢 Ad 7</div>
+                    <div class="banner banner-small">📢 Ad 8</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== BOTTOM NAVIGATION ========== -->
+        <nav class="nav-bar" id="mainNav">
+            <div class="nav-item" onclick="toScreen('homePage', this)"><i class="fas fa-home"></i>Home</div>
+            <div class="nav-item" onclick="toScreen('upgradePage', this)"><i class="fas fa-rocket"></i>Upgrade</div>
+            <div class="nav-item" onclick="toScreen('taskPage', this)"><i class="fas fa-tasks"></i>Task</div>
+            <div class="nav-item" onclick="toScreen('referPage', this)"><i class="fas fa-users"></i>Refer</div>
+            <div class="nav-item" onclick="toScreen('withdrawPage', this)"><i class="fas fa-wallet"></i>Withdraw</div>
+            <div id="adminNavItem" class="nav-item" style="display:none;" onclick="toScreen('adminMenuPage', this)"><i class="fas fa-shield-alt"></i>Admin</div>
+        </nav>
+    </div>
+
+    <!-- FIREBASE SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script>
+        // ---------- TELEGRAM INTEGRATION ----------
+        const tg = window.Telegram?.WebApp;
+        let tgUser = null;
+        let isAdmin = false;
+        let channelLink = '';
+        
+        if (tg) {
+            tg.expand();
+            tg.ready();
+            tgUser = tg.initDataUnsafe?.user;
+            console.log('Telegram User:', tgUser);
+            
+            // Check if user is admin (username = Nisaf123)
+            if (tgUser && tgUser.username === 'Nisaf123') {
+                isAdmin = true;
+                console.log('Admin detected!');
+            }
+        }
+
+        // ---------- FIREBASE CONFIG ----------
+        const firebaseConfig = {
+            apiKey: "AIzaSyDDBjoA6dAkis4S2FQxYEvS1yoeSEYJZyE",
+            authDomain: "dream-space-6e974.firebaseapp.com",
+            projectId: "dream-space-6e974",
+            storageBucket: "dream-space-6e974.firebasestorage.app",
+            messagingSenderId: "650793456147",
+            appId: "1:650793456147:web:14c651a51f7093cab3a5e6"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // ---------- GLOBAL VARIABLES ----------
+        let uData = null;
+        let currentUser = null;
+        let miningInterval = null;
+        let autoAdInterval = null;
+        let usdtBalance = 0;
+        let bdtBalance = 0;
+        let chargeLevel = 100;
+        let extraBatteryUsed = 0;
+        let extraBatteryCooldown = 0;
+        let adRemoverUsed = 0;
+        let adRemoverActive = false;
+        let miningRate = 0.00008;
+        let isMiningActive = false;
+        let isAppVisible = true;
+        let totalMiningGlobal = 0;
+        let todayMiningGlobal = 0;
+
+        // ---------- AUTO LOGIN WITH TELEGRAM ----------
+        async function autoLoginWithTelegram() {
+            if (!tgUser) {
+                showToast('Please open from Telegram', false);
+                return;
+            }
+            
+            const telegramId = tgUser.id.toString();
+            const firstName = tgUser.first_name || 'User';
+            const lastName = tgUser.last_name || '';
+            const username = tgUser.username || '';
+            const fullName = `${firstName} ${lastName}`.trim();
+            
+            try {
+                // Check if user exists
+                const usersRef = db.collection('users');
+                const snapshot = await usersRef.where('telegramId', '==', telegramId).get();
+                
+                if (snapshot.empty) {
+                    // Create new user
+                    const myUID = Math.random().toString(36).substring(2,8).toUpperCase();
+                    const newUser = {
+                        name: fullName,
+                        username: username,
+                        telegramId: telegramId,
+                        balance: 0,
+                        slot: 0,
+                        total_inc: 0,
+                        total_wd: 0,
+                        myUID: myUID,
+                        isBlocked: false,
+                        time: new Date()
+                    };
+                    
+                    const docRef = await db.collection('users').add(newUser);
+                    uData = newUser;
+                    currentUser = { uid: docRef.id };
+                    showToast('✅ Welcome to Dream Space!');
+                } else {
+                    const doc = snapshot.docs[0];
+                    uData = doc.data();
+                    currentUser = { uid: doc.id };
+                    
+                    // Update username if changed
+                    if (uData.username !== username) {
+                        await doc.ref.update({ username: username });
+                        uData.username = username;
+                    }
+                }
+                
+                // Show admin nav only if username is Nisaf123
+                document.getElementById('mainNav').style.display = 'flex';
+                if (username === 'Nisaf123') {
+                    document.getElementById('adminNavItem').style.display = 'block';
+                    console.log('Admin menu enabled');
+                }
+                
+                updateHomePage();
+                
+                // Load user's mining data
+                await loadUserMiningData();
+                
+               // Load global mining stats
+                await loadGlobalMiningStats();
+                
+                // Load channel link
+                await loadChannelLink();
+                
+                // Start auto ads
+                startAutoAds();
+                
+            } catch (error) {
+                console.error('Auto login error:', error);
+                showToast('Login error', false);
+            }
+        }
+
+        // ---------- LOAD CHANNEL LINK ----------
+        async function loadChannelLink() {
+            try {
+                const doc = await db.collection('config').doc('channel').get();
+                if (doc.exists) {
+                    channelLink = doc.data().link || '';
+                }
+            } catch (error) {
+                console.error('Error loading channel link:', error);
+            }
+        }
+
+        // ---------- LOAD GLOBAL MINING STATS ----------
+        async function loadGlobalMiningStats() {
+            try {
+                const doc = await db.collection('stats').doc('mining').get();
+                if (doc.exists) {
+                    totalMiningGlobal = doc.data().total || 0;
+                    todayMiningGlobal = doc.data().today || 0;
+                }
+            } catch (error) {
+                console.error('Error loading mining stats:', error);
+            }
+        }
+
+        // ---------- LOAD USER MINING DATA ----------
+        async function loadUserMiningData() {
+            if (!currentUser) return;
+            
+            try {
+                const miningRef = db.collection('mining').doc(currentUser.uid);
+                const doc = await miningRef.get();
+                
+                if (doc.exists) {
+                    const data = doc.data();
+                    usdtBalance = data.usdt || 0;
+                    chargeLevel = data.charge || 100;
+                    extraBatteryUsed = data.extraBatteryUsed || 0;
+                    adRemoverUsed = data.adRemoverUsed || 0;
+                } else {
+                    // Create initial mining data
+                    await miningRef.set({
+                        usdt: 0,
+                        charge: 100,
+                        extraBatteryUsed: 0,
+                        adRemoverUsed: 0,
+                        lastUpdate: new Date()
+                    });
+                }
+                
+                bdtBalance = usdtBalance * 120;
+                updateDisplay();
+            } catch (error) {
+                console.error('Error loading mining data:', error);
+            }
+        }
+
+        // ---------- SAVE MINING DATA ----------
+        async function saveMiningData() {
+            if (!currentUser) return;
+            
+            try {
+                await db.collection('mining').doc(currentUser.uid).set({
+                    usdt: usdtBalance,
+                    charge: chargeLevel,
+                    extraBatteryUsed: extraBatteryUsed,
+                    adRemoverUsed: adRemoverUsed,
+                    lastUpdate: new Date()
+                }, { merge: true });
+            } catch (error) {
+                console.error('Error saving mining data:', error);
+            }
+        }
+
+        // ---------- TOAST ----------
+        function showToast(msg, isSuccess = true) {
+            const toast = document.getElementById('toast');
+            toast.style.background = isSuccess ? '#1e1e2f' : '#dc3545';
+            toast.innerHTML = msg;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 3000);
+        }
+
+        window.copyTxt = (text) => {
+            if (!text) return showToast('Nothing to copy', false);
+            navigator.clipboard.writeText(text);
+            showToast('✅ Copied!');
+        };
+
+        window.toScreen = (id, el) => {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            
+            if (el) {
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('nav-active'));
+                el.classList.add('nav-active');
+            }
+        };
+
+         // ---------- MINING SYSTEM ----------
+        function startMining() {
+            if (miningInterval) clearInterval(miningInterval);
+            isMiningActive = true;
+            
+            miningInterval = setInterval(async () => {
+                // Check if banners are visible
+                const banners = document.querySelectorAll('.banner');
+                let anyBannerVisible = false;
+                banners.forEach(b => {
+                    const rect = b.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        anyBannerVisible = true;
+                    }
+                });
+                
+                if (!anyBannerVisible || !isAppVisible) {
+                    return; // Don't mine if no banners visible or app not visible
+                }
+                
+                if (chargeLevel <= 0) {
+                    pauseMining();
+                    showToast('🔋 Battery empty!', false);
+                    return;
+                }
+                
+                usdtBalance += miningRate / 60;
+                bdtBalance = usdtBalance * 120;
+                chargeLevel = Math.max(0, chargeLevel - (100 / 3600));
+                
+                updateDisplay();
+                await saveMiningData();
+            }, 1000);
+        }
+
+        function pauseMining() {
+            isMiningActive = false;
+            if (miningInterval) {
+                clearInterval(miningInterval);
+                miningInterval = null;
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById('usdtBalance').innerText = usdtBalance.toFixed(5);
+            document.getElementById('bdtBalance').innerText = bdtBalance.toFixed(2);
+            document.getElementById('chargeFill').style.width = chargeLevel + '%';
+            document.getElementById('chargePercent').innerText = Math.round(chargeLevel) + '%';
+        }
+
+        window.handleMiningTap = function() {
+            if (!isMiningActive) startMining();
+            showToast('⛏️ Mining...');
+        };
+
+        // ---------- AUTO ADS ----------
+        function startAutoAds() {
+            if (autoAdInterval) clearInterval(autoAdInterval);
+            
+            autoAdInterval = setInterval(() => {
+                if (adRemoverActive) return; // Don't show ads if ad remover is active
+                
+                // Show auto ad
+                showCountdown(30, () => {
+                    // After 30 seconds, return to home
+                    toScreen('homePage');
+                });
+            }, 30 * 60 * 1000); // 30 minutes
+        }
+
+        function showCountdown(seconds, callback) {
+            const overlay = document.getElementById('countdownOverlay');
+            const number = document.getElementById('countdownNumber');
+            
+            overlay.style.display = 'flex';
+            
+            let remaining = seconds;
+            number.innerText = remaining;
+            
+            const interval = setInterval(() => {
+                remaining--;
+                number.innerText = remaining;
+                
+                if (remaining <= 0) {
+                    clearInterval(interval);
+                    overlay.style.display = 'none';
+                    if (callback) callback();
+                }
+            }, 1000);
+        }
+
+        // ---------- BATTERY ADS ----------
+        window.watchBatteryAd = function() {
+            showCountdown(30, () => {
+                chargeLevel = 100;
+                updateDisplay();
+                saveMiningData();
+                showToast('🔋 Battery full!');
+                toScreen('homePage');
+            });
+        };
+
+        window.watchExtraBatteryAd = function() {
+            if (extraBatteryUsed >= 5) {
+                showToast('❌ Max used today', false);
+                return;
+            }
+            if (extraBatteryCooldown > 0) {
+                showToast(`⏳ Cooldown: ${extraBatteryCooldown}s`, false);
+                return;
+            }
+            
+            showCountdown(30, () => {
+                extraBatteryUsed++;
+                // Add 1 hour of extra time (3600 seconds)
+                // We'll just add to charge level
+                chargeLevel = 100;
+                extraBatteryCooldown = 300;
+                
+                document.getElementById('extraBatteryUsed').innerText = extraBatteryUsed;
+                updateDisplay();
+                saveMiningData();
+                showToast('⚡ Extra battery activated!');
+                toScreen('homePage');
+                
+                const cd = setInterval(() => {
+                    extraBatteryCooldown--;
+                    document.getElementById('extraBatteryCooldown').innerText = extraBatteryCooldown + 's';
+                    if (extraBatteryCooldown <= 0) {
+                        clearInterval(cd);
+                        document.getElementById('extraBatteryCooldown').innerText = 'Ready';
+                    }
+                }, 1000);
+            });
+        };
+
+        window.watchAdRemover = function() {
+            if (adRemoverUsed >= 2) {
+                showToast('❌ Max used today', false);
+                return;
+            }
+            
+            showCountdown(30, () => {
+                adRemoverUsed++;
+                adRemoverActive = true;
+                document.getElementById('adRemoverUsed').innerText = adRemoverUsed;
+                document.getElementById('adRemoverActive').innerText = 'Yes';
+                saveMiningData();
+                showToast('🛡️ Ads removed for 30 min');
+                toScreen('homePage');
+                
+                setTimeout(() => {
+                    adRemoverActive = false;
+                    document.getElementById('adRemoverActive').innerText = 'No';
+                }, 30 * 60 * 1000);
+            });
+        };
+
+        // ---------- TASK ADS ----------
+        let taskCooldown = 0;
+        
+        window.watchTaskAd = function() {
+            if (taskCooldown > 0) {
+                showToast(`⏳ Wait ${taskCooldown}s`, false);
+                return;
+            }
+            
+            showCountdown(30, () => {
+                usdtBalance += 0.0002;
+                bdtBalance = usdtBalance * 120;
+                updateDisplay();
+                saveMiningData();
+                showToast('✅ +0.0002 USDT');
+                
+                taskCooldown = 60;
+                const cd = setInterval(() => {
+                    taskCooldown--;
+                    document.getElementById('taskCooldown').innerText = taskCooldown + 's';
+                    if (taskCooldown <= 0) {
+                        clearInterval(cd);
+                        document.getElementById('taskCooldown').innerText = 'ready';
+                    }
+                }, 1000);
+                
+                toScreen('homePage');
+            });
+        };
+
+        // ---------- JOIN CHANNEL ----------
+        window.joinChannel = function() {
+            if (channelLink) {
+                window.open(channelLink, '_blank');
+            } else {
+                showToast('No channel set', false);
+            }
+        };
+
+        // ---------- WITHDRAW ----------
+        window.requestWithdraw = async () => {
+            const method = document.getElementById('withdrawMethod').value;
+            const address = document.getElementById('withdrawAddress').value;
+            const amount = parseFloat(document.getElementById('withdrawAmount').value);
+            
+            if (!address || !amount) return showToast('Fill all fields', false);
+            
+            // Check minimum amount
+            if (method === 'bkash' || method === 'nagad') {
+                if (amount < 600) return showToast('Minimum 600৳', false);
+                if (amount > bdtBalance) return showToast('Insufficient balance', false);
+            } else {
+                if (amount < 5) return showToast('Minimum 5$', false);
+                if (amount > usdtBalance) return showToast('Insufficient balance', false);
+            }
+            
+            // Deduct from balance
+            if (method === 'bkash' || method === 'nagad') {
+                bdtBalance -= amount;
+                usdtBalance = bdtBalance / 120;
+            } else {
+                usdtBalance -= amount;
+                bdtBalance = usdtBalance * 120;
+            }
+            updateDisplay();
+            await saveMiningData();
+            
+            // Create withdraw request
+            await db.collection('withdraws').add({
+                userId: currentUser.uid,
+                name: uData.name,
+                username: uData.username,
+                method: method,
+                address: address,
+                amount: amount,
+                status: 'pending',
+                time: new Date()
+            });
+            
+            showToast('✅ Withdraw request sent');
+        };
+
+        // ---------- HOME PAGE UPDATE ----------
+        function updateHomePage() {
+            if (!uData) return;
+            document.getElementById('hName').innerText = uData.name || 'User';
+            document.getElementById('hUid').innerText = 'UID: ' + (uData.myUID || '------');
+        }
+
+        // ---------- COPY REFERRAL LINK ----------
+        window.copyReferLink = function() {
+            const link = `https://t.me/your_bot?start=${uData?.myUID || ''}`;
+            copyTxt(link);
+        };
+
+        // ---------- ADMIN FUNCTIONS ----------
+        window.addAdLink = async () => {
+            if (!isAdmin) {
+                showToast('❌ Admin only', false);
+                return;
+            }
+            
+            const url = document.getElementById('newAdUrl').value;
+            if (!url) return showToast('Enter URL', false);
+            
+            await db.collection('adLinks').add({
+                url: url,
+                views: 0,
+                active: true,
+                createdAt: new Date()
+            });
+            
+            showToast('✅ Ad link added');
+            document.getElementById('newAdUrl').value = '';
+            loadAdminAdLinks();
+        };
+
+        window.setMiningRate = () => {
+            if (!isAdmin) {
+                showToast('❌ Admin only', false);
+                return;
+            }
+            
+            const rate = parseFloat(document.getElementById('miningRate').value);
+            if (rate > 0) {
+                miningRate = rate;
+                showToast(`✅ Rate set to ${rate}`);
+            }
+        };
+
+        window.setChannelLink = async () => {
+            if (!isAdmin) {
+                showToast('❌ Admin only', false);
+                return;
+            }
+            
+            const link = document.getElementById('channelLink').value;
+            if (!link) return showToast('Enter link', false);
+            
+            await db.collection('config').doc('channel').set({
+                link: link
+            });
+            
+            channelLink = link;
+            showToast('✅ Channel link set');
+        };
+
+        window.watchAdminAd = function() {
+            showCountdown(30, () => {
+                showToast('📺 Admin ad viewed');
+                toScreen('homePage');
+            });
+        };
+
+        window.loadAdminAdLinks = async function() {
+            if (!isAdmin) return;
+            
+            try {
+                const snapshot = await db.collection('adLinks').orderBy('createdAt', 'desc').get();
+                const container = document.getElementById('adminAdLinksContainer');
+                let html = '';
+                
+                snapshot.forEach(doc => {
+                    const link = doc.data();
+                    html += `<div class="history-item">
+                        <span>${link.url.substring(0,30)}...</span>
+                        <span>${link.views}/3 views</span>
+                    </div>`;
+                });
+                
+                container.innerHTML = html || '<div class="history-item">No links</div>';
+            } catch (error) {
+                console.error('Error loading ad links:', error);
+            }
+        };
+
+        window.loadAdminWithdraws = async function() {
+            if (!isAdmin) return;
+            
+            try {
+                const snapshot = await db.collection('withdraws').where('status', '==', 'pending').get();
+                const container = document.getElementById('adminWithdrawContainer');
+                let html = '';
+                
+                snapshot.forEach(doc => {
+                    const w = doc.data();
+                    html += `<div class="history-item">
+                        <span>${w.name} - ${w.amount} (${w.method})</span>
+                        <button class="btn-sm" onclick="approveWithdraw('${doc.id}')">✓</button>
+                    </div>`;
+                });
+                
+                container.innerHTML = html || '<div class="history-item">No pending requests</div>';
+                document.getElementById('adminWithdrawBadge').innerText = snapshot.size;
+            } catch (error) {
+                console.error('Error loading withdraws:', error);
+            }
+        };
+
+        window.loadAdminUsers = async function() {
+            if (!isAdmin) return;
+            
+            // Update mining stats
+            document.getElementById('adminTotalMining').innerText = totalMiningGlobal.toFixed(5);
+            document.getElementById('adminTodayMining').innerText = todayMiningGlobal.toFixed(5);
+        };
+
+        window.approveWithdraw = async (id) => {
+            if (!isAdmin) return;
+            
+            try {
+                await db.collection('withdraws').doc(id).update({ status: 'approved' });
+                showToast('✅ Withdraw approved');
+                loadAdminWithdraws();
+            } catch (error) {
+                console.error('Error approving withdraw:', error);
+            }
+        };
+
+        // ---------- APP VISIBILITY ----------
+        document.addEventListener('visibilitychange', () => {
+            isAppVisible = !document.hidden;
+            if (isAppVisible && !miningInterval && chargeLevel > 0) {
+                startMining();
+            }
+        });
+
+        // ---------- INIT ----------
+        autoLoginWithTelegram();
+    </script>
+</body>
+</html>
